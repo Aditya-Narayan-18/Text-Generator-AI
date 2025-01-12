@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Generation</title>
+</head>
+<body style="background-image: url('https://img.freepik.com/free-vector/gradient-geometric-blue-technology-background_52683-78527.jpg?semt=ais_hybrid'); background-size: cover; background-position: center; background-repeat: no-repeat;"></bodystyle>>
+    <h1 style="color: white;">Welcome to Text Generation</h1>
+    <form id="form">
+        <textarea id="inputText" rows="5" cols="40" placeholder="Type your prompt here..."></textarea><br>
+        <button type="submit">Generate</button>
+        <style>
+            button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 8px;
+                transition: background-color 0.3s;
+            }
+    
+            button:hover {
+                background-color: #3e8e41; /* Darker green on hover */
+            }
+    
+            button:active {
+                background-color: #367c39; /* Darkest green on click */
+                transform: translateY(2px); /* Slight downward shift */
+            }
+        </style>
+    </form>
+    <h2 style="color: white;"><b>Generated Text:</b></h2>
+    <textarea id="outputText" rows="7" cols="120" ></textarea><br>
+    <!-- <p id="outputText"></p> -->
+    <script>
+        document.getElementById('form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const prompt = document.getElementById('inputText').value;
+            const response = await fetch('http://127.0.0.1:5000/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt: prompt })
+            });
+            const data = await response.json();
+            document.getElementById('outputText').innerText = data.generated_text;
+        });
+    </script>
+  </div>
+</body>
+</html>
